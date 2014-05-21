@@ -4,7 +4,7 @@ Meteor.startup ->
   get_location (position) ->
     Meteor.subscribe("stations")
     console.log "Subscribed to nearest stations"
-    Session.set("location", position)
+    Session.set("location", position) if position.accuracy < 3000
 
 
 Template.stations.list = ->

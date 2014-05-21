@@ -23,6 +23,8 @@ Template.maps.rendered = ->
         }
       )
     get_location (position) ->
+      if position.accuracy > 3000
+        return
       @maps.add_marker(position)
       @maps.center(position)
       edge = Stations.findOne { location: { $near: [position.longitude, position.latitude]}}, { limit: 20 }
