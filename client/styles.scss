@@ -1,5 +1,58 @@
+$off-canvas-width: 40%;
+
 @import "packages/foundation5-sass/foundation";
 
 #map img {
     max-width : none;
+}
+
+.columns {
+    padding: 0;
+}
+
+table.station-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+table.station-list tr {
+    height: 5%;
+}
+
+table.station-list td {
+    color: white;
+}
+
+@mixin link($color) {
+    background: $color !important;
+
+    &:hover {
+        background: darken($color, 5%) !important;
+    }
+}
+
+.bikes-0 {
+    @include link(#A60000);
+}
+
+.bikes-1 {
+    @include link(#FF0000);
+}
+
+.bikes-2 {
+    @include link(#888);
+}
+
+.bikes-3 {
+    @include link(#666);
+}
+
+.bikes-4 {
+    @include link(#00CC00);
+}
+
+.bikes-5 {
+    @include link(#008500);
 }

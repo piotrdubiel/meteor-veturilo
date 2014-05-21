@@ -5,7 +5,7 @@ class @Maps
     center = new google.maps.LatLng(position.latitude, position.longitude)
     delete options["center"] if options
     options = $.extend {
-      styles: [{"stylers": [{ "invert_lightness": true }, { "saturation": 30 }]}]
+      styles: [{"stylers": [{ "invert_lightness": false }, { "saturation": 30 }]}]
       center: center
       scrollwheel: true
       draggable: true
@@ -46,3 +46,23 @@ class @Maps
 
   center: (position) ->
     @map.setCenter(new google.maps.LatLng(position.latitude, position.longitude))
+
+  zoom: (val) ->
+    @map.setZoom(val)
+
+  circle: (point) ->
+    radius = google.maps.geometry.spherical.computeDistanceBetween(
+      new google.maps.LatLng(point.latitude, point.longitude),
+      @map.getCenter()
+    )
+    
+    circle = new google.maps.Circle(
+        map: @map
+        radius: radius
+        fillColor: "#333333"
+        fillOpacity: 0.35
+        strokeColor: "#d62728"
+        strokeWeight: 1
+        strokeOpacity: 0.7
+        center: @map.getCenter()
+      )
