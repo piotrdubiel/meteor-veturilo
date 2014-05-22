@@ -1,14 +1,7 @@
 # vi: set ft=coffee:
 
-Meteor.startup ->
-  get_location (position) ->
-    Meteor.subscribe("stations")
-    console.log "Subscribed to nearest stations"
-    Session.set("location", position) if position.accuracy < 3000
-
-
 Template.stations.list = ->
-  position = Session.get("location") || {latitude: 52.225574, longitude: 21.010931}
+  position = Session.get("center") || {latitude: 52.225574, longitude: 21.010931}
   nearest(position, 20)
 
 Template.station.height = ->

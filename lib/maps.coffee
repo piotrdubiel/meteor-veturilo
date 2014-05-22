@@ -47,6 +47,10 @@ class @Maps
   center: (position) ->
     @map.setCenter(new google.maps.LatLng(position.latitude, position.longitude))
 
+  getCenter: ->
+    center = @map.getCenter()
+    {latitude: center.lat(), longitude: center.lng()}
+
   zoom: (val) ->
     @map.setZoom(val)
 
@@ -66,3 +70,6 @@ class @Maps
         strokeOpacity: 0.7
         center: @map.getCenter()
       )
+
+  onCenterChanged: (listener) ->
+    google.maps.event.addListener(@map, 'center_changed', listener)
