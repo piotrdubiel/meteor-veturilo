@@ -8,16 +8,21 @@ Template.maps.rendered = ->
     Session.set("center". position)
     
     if Deps.currentComputation.firstRun
-      $("#map").css("height", $(window).height() - $(".tab-bar").height())
+      $("#map").css("height", $(window).height())
       @maps = new Maps($("#map"), position, {zoom: 14})
       @maps.onCenterChanged =>
         center = @maps.getCenter()
         console.log "New center"
         Session.set("center", @maps.getCenter())
+        @maps.addMarker(
+          latitude: @maps.getCenter().latitude
+          longitude: @maps.getCenter().longitude
+          icon: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+        )
     
     @maps.clear()
     Stations.find().forEach (station) =>
-      @maps.add_marker(
+      @maps.addMarker(
         latitude: station.location[1]
         longitude: station.location[0]
         title: station.name
@@ -31,7 +36,7 @@ Template.maps.rendered = ->
       if position.accuracy > 3000
         console.log "Skipping geolocation. Low accuracy"
         return
-      @maps.add_marker(position)
+      @maps.addMarker(position)
       @maps.center(position)
       edge = Stations.findOne { location: { $near: [position.longitude, position.latitude]}}, { limit: 20 }
       @maps.circle({latitude: edge.location[1], longitude: edge.location[0]})

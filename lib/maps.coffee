@@ -4,8 +4,32 @@ class @Maps
   constructor: (container, position, options) ->
     center = new google.maps.LatLng(position.latitude, position.longitude)
     delete options["center"] if options
+    styles = [
+      {
+        featureType: "road.arterial"
+        elementType: "geometry"
+        stylers: [
+          { hue: "#00ffee" }
+          { saturation: 50 }
+        ]
+      },
+      {
+        featureType: "poi.business"
+        elementType: "labels"
+        stylers: [
+          { visibility: "off" }
+        ]
+      }
+      {
+        featureType: "administrative"
+        stylers: [
+          { hue: "#ff0000" }
+          { saturation: 100 }
+        ]
+      }
+    ]
     options = $.extend {
-      styles: [{"stylers": [{ "invert_lightness": false }, { "saturation": 30 }]}]
+      styles: styles
       center: center
       scrollwheel: true
       draggable: true
@@ -15,7 +39,7 @@ class @Maps
     @map = new google.maps.Map(element, options)
     @markers = []
 
-  add_marker: (request) ->
+  addMarker: (request) ->
     latlng = new google.maps.LatLng(request.latitude, request.longitude)
     marker = new google.maps.Marker(
       position: latlng
@@ -39,6 +63,17 @@ class @Maps
     @markers.push(marker)
     return marker
 
+  markerWithTitle: (title) ->
+    _.find(@markers, (marker) -> marker.getTitle() == title)
+
+  markerWithPosition: (position) ->
+    _.find(@markers, (marker) ->
+      marker.getPosition().lat() == position.latitude && marker.getPosition().lng() == position.longitude
+    )
+
+  removeMarkerWithTitle: (title) ->
+    @markerWithTitle(title).setMap(null)
+
   clear: ->
     @markers.forEach (marker) ->
       marker.setMap(null)
@@ -54,14 +89,15 @@ class @Maps
   zoom: (val) ->
     @map.setZoom(val)
 
+
   circle: (point) ->
     radius = google.maps.geometry.spherical.computeDistanceBetween(
       new google.maps.LatLng(point.latitude, point.longitude),
       @map.getCenter()
     )
-    
+
     circle = new google.maps.Circle(
-        map: @map
+      map: @map
         radius: radius
         fillColor: "#333333"
         fillOpacity: 0.35
@@ -69,7 +105,7 @@ class @Maps
         strokeWeight: 1
         strokeOpacity: 0.7
         center: @map.getCenter()
-      )
+    )
 
   onCenterChanged: (listener) ->
     google.maps.event.addListener(@map, 'center_changed', listener)

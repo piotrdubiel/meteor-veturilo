@@ -32,3 +32,26 @@
         position.latitude
       ]},
     limit: limit
+
+@matching = (query, limit) ->
+  return Stations.find {
+    name:
+      $regex: query
+      $options: "i"
+    },
+    limit: limit
+
+@geocode = (address) ->
+  geocoder = new google.maps.Geocoder()
+  console.log address
+  geocoder.geocode {'address': address}, (results, status) ->
+    if status == google.maps.GeocoderStatus.OK
+      Session.set("match-query", null)
+      Session.set("center", {
+        latitude: results[0].geometry.location.lat()
+        longitude: results[0].geometry.location.lng()
+      })
+      window.maps.center(Session.get("center"))
+      window.maps.zoom(16)
+    else
+      alert("Geocode was not successful for the following reason: " + status)

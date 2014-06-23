@@ -1,65 +1,54 @@
 <head>
-    <title>V</title>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBE3hhNVelcC7WxmQcv4LxSC9w_xTpL4cg&libraries=geometry&sensor=false">
-    </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>V</title>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBE3hhNVelcC7WxmQcv4LxSC9w_xTpL4cg&libraries=geometry&sensor=false"></script>
+<link href="/icons/foundation-icons.css" rel="stylesheet">
 </head>
 
 <body>
-    <!--
-    <div class="off-canvas-wrap" data-offcanvas>
-        <div class="inner-wrap">
-            <nav class="tab-bar">
-                <section class="left-small">
-                    <a class="left-off-canvas-toggle menu-icon"><span></span></a>
-                </section>
+{{> navigation}}
 
-                <section class="middle tab-bar-section">
-                    <h1 class="title">Foundation</h1>
-                </section>
-            </nav>
-            <aside class="left-off-canvas-menu">
-                <ul class="off-canvas-list">
-                    <li><label>Stations</label></li>
-                    {{> stations }}
-                </ul>
-            </aside>
-            <div class="row-fluid">
-                <div class="small-12">
-                    {{> maps }}
-                </div>
-            </div>
-            <a class="exit-off-canvas"></a>
-        </div>
-    </div>
-    -->
+<section class="main-section">
     <div class="row-fluid">
-        <div class="small-4 columns">
-            {{> stations }}
-        </div>
-        <div class="small-8 columns">
-            {{> maps }}
+        <div class="small-12 columns">
+            <ul class="main-orbit" data-orbit data-options="navigation_arrows:false;
+                                        timer: false;
+                                        slide_number: false;
+                                        bullets: false;">
+                <li id="stations" class="item active" data-orbit-slide="stations">
+                    {{> stations }}
+                </li>
+                <li id="maps" class="item" data-orbit-slide="maps">
+                    {{> maps }}
+                </li>
+            </ul>
         </div>
     </div>
-    {{initFoundation}}
+</section>
+
+{{initFoundation}}
 </body>
 
 
 <template name="maps">
-    <div id="map"></div>
+<div id="map"></div>
 </template>
 
 
 <template name="stations">
-    <table class="station-list">
-        {{#each list }}
-            {{> station }}
-        {{/each}}
-    </table>
+<div class="station-list">
+    {{#each list }}
+    {{> station }}
+    {{/each}}
+</div>
 </template>
 
 <template name="station">
-    <tr style="height: {{ height }}" class="bikes-{{ count }}" >
-        <td>{{ name }}</td>
-        <td>{{ bikes }}</td>
-    </tr>
+<div class="item">
+    <span>{{ name }}</span>
+    <span>{{ bikes }}</span>
+</div>
 </template>
