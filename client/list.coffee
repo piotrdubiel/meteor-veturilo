@@ -22,7 +22,7 @@ Template.station.count = ->
 
 Template.station.link = ->
   label = "#{@.name} - #{@.bikes} bikes left"
-  "geo:0,0?q=#{@.location[1]},#{@.location[0]}(#{encodeURIComponent(label)})"
+  "#{maps_scheme()}#{@.location[1]},#{@.location[0]}(#{encodeURIComponent(label)})"
 
 Template.navigation.events =
   "keyup #search-input":  (event) ->
