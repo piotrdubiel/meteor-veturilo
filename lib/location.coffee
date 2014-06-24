@@ -47,7 +47,7 @@
   geocoder.geocode {'address': address}, (results, status) ->
     if status == google.maps.GeocoderStatus.OK
       Session.set("match-query", null)
-      Session.set("center", {
+      Session.set("search-result", {
         latitude: results[0].geometry.location.lat()
         longitude: results[0].geometry.location.lng()
       })

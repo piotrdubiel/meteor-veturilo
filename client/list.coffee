@@ -11,7 +11,7 @@ Template.stations.list = ->
   if Session.get("match-query")
     matching(Session.get("match-query"), 50)
   else
-    position = Session.get("center") || {latitude: 52.225574, longitude: 21.010931}
+    position = Session.get("search-result") || Session.get("center") || {latitude: 52.225574, longitude: 21.010931}
     nearest(position, 50)
 
 Template.station.height = ->
