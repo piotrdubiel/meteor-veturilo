@@ -1,7 +1,7 @@
 # vi: set ft=coffee:
 
 root = exports ? this
-root.Stations = new Meteor.Collection "stations"
+root.Stations = new Meteor.Collection "latest"
 
 if Meteor.isServer
   Stations._ensureIndex({ location: "2dsphere" })
