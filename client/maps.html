@@ -9,22 +9,13 @@
 </head>
 
 <body>
+
 {{> navigation}}
 
 <section class="main-section">
     <div class="row-fluid">
         <div class="small-12 columns">
-            <ul class="main-orbit" data-orbit data-options="navigation_arrows:false;
-                                        timer: false;
-                                        slide_number: false;
-                                        bullets: false;">
-                <li id="stations" class="item active" data-orbit-slide="stations">
-                    {{> stations }}
-                </li>
-                <li id="maps" class="item" data-orbit-slide="maps">
-                    {{> maps }}
-                </li>
-            </ul>
+            {{> stations }}
         </div>
     </div>
 </section>
@@ -39,16 +30,16 @@
 
 
 <template name="stations">
-<div class="station-list">
+<table class="station-list">
     {{#each list }}
     {{> station }}
     {{/each}}
-</div>
+</table>
 </template>
 
 <template name="station">
-<div class="item">
-    <span>{{ name }}</span>
-    <span>{{ bikes }}</span>
-</div>
+<tr class="item">
+    <td class="count bikes-{{ count}}">{{ bikes }}</td>
+    <td><a href="{{ link }}">{{ name }}</a></td>
+</tr>
 </template>

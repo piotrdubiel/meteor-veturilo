@@ -34,10 +34,10 @@
     limit: limit
 
 @matching = (query, limit) ->
+  queries = ({name:{$regex: q, $options: "i"}} for q in query.split(" "))
+
   return Stations.find {
-    name:
-      $regex: query
-      $options: "i"
+      $and: queries
     },
     limit: limit
 
@@ -51,7 +51,5 @@
         latitude: results[0].geometry.location.lat()
         longitude: results[0].geometry.location.lng()
       })
-      window.maps.center(Session.get("center"))
-      window.maps.zoom(16)
     else
       alert("Geocode was not successful for the following reason: " + status)
