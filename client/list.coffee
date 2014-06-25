@@ -5,7 +5,10 @@ Meteor.subscribe "stations"
 Template.stations.rendered = ->
   watch_location (position) ->
     console.log "New center #{JSON.stringify(position)}"
-    Session.set("center", position)
+    if position.accuracy < 1000
+      Session.set("center", position)
+    else
+      console.log "Skipping location due to low accuracy"
 
 Template.stations.list = ->
   if Session.get("match-query")
@@ -25,15 +28,17 @@ Template.station.link = ->
   "#{maps_scheme()}#{@.location[1]},#{@.location[0]}(#{encodeURIComponent(label)})"
 
 Template.navigation.events =
-  "keyup #search-input":  (event) ->
+  "input #search-input": (event) ->
     text = $("#search-input").val()
-    if event.keyCode == 13
-      geocode text
-    else if text.length > 0
-      console.log text
+    if text.length > 0
       Session.set("match-query", text)
     else
       Session.set("match-query", null)
+
+  "keyup #search-input": (event) ->
+    text = $("#search-input").val()
+    if event.keyCode == 13
+      geocode text
 
   "click #search-button": (event) ->
     event.preventDefault()
