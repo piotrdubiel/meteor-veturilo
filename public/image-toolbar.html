@@ -1,0 +1,27 @@
+<link rel="import" href="/polymer/components/polymer/polymer.html"> 
+<link rel="import" href="/polymer/components/core-toolbar/core-toolbar.html">
+
+<polymer-element name="image-toolbar" attributes="image" noscript>
+    <style>
+    //:host /deep/ #topBar {
+    //    background: #56BA89;
+    //    background-image: none;
+    //    color: white;
+    //}
+
+    //:host /deep/ .tall {
+    //    background-image: url({{ image }});
+    //    background-repeat:no-repeat;
+    //    background-size: 100% auto;
+    //    background-position:center;
+    //    background-clip:content-box;
+    //    color: white;
+    //}
+    </style>
+
+    <template>
+        <div id="toolbar" class="core-header tall" center horizontal layout>
+        <content></content>
+        </div>
+    </template>
+</polymer-element>

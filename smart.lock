@@ -1,20 +1,7 @@
 {
   "meteor": {},
   "dependencies": {
-    "basePackages": {
-      "foundation5-sass": {}
-    },
-    "packages": {
-      "foundation5-sass": {
-        "git": "https://github.com/lgollut/meteor-foundation5-sass.git",
-        "tag": "v0.0.13",
-        "commit": "10fed6a3c7edbbce6bd234ed41ca2b23ba4cf1cf"
-      },
-      "scss": {
-        "git": "https://github.com/fourseven/meteor-scss.git",
-        "tag": "v0.8.7",
-        "commit": "d085b7272eacc20866abff61b25c915a22ddbcf4"
-      }
-    }
+    "basePackages": {},
+    "packages": {}
   }
 }

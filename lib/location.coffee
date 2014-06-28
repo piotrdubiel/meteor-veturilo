@@ -43,6 +43,8 @@
 
 @geocode = (address) ->
   geocoder = new google.maps.Geocoder()
+  if not address.match(/warszawa/i)
+    address += " warszawa"
   console.log address
   geocoder.geocode {'address': address}, (results, status) ->
     if status == google.maps.GeocoderStatus.OK
@@ -51,5 +53,16 @@
         latitude: results[0].geometry.location.lat()
         longitude: results[0].geometry.location.lng()
       })
-    else
-      alert("Geocode was not successful for the following reason: " + status)
+
+@streetview = (position) ->
+  "http://maps.googleapis.com/maps/api/streetview?size=640x640&location=#{position.latitude},#{position.longitude}" if position
+
+@stations = ->
+  result = if Session.get("match-query")
+    matching(Session.get("match-query"), 10)
+  else
+    position = Session.get("search-result") || Session.get("center") || {latitude: 52.225574, longitude: 21.010931}
+    nearest(position, 10)
+
+  result.fetch()
+  

@@ -1,45 +1,47 @@
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <title>V</title>
 
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBE3hhNVelcC7WxmQcv4LxSC9w_xTpL4cg&libraries=geometry&sensor=false"></script>
-<link href="/icons/foundation-icons.css" rel="stylesheet">
+<link href="/stations.html" rel="import">
+
+<style>
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #E5E5E5;
+    font-family: 'RobotoDraft', sans-serif;
+}
+core-header-panel {
+    height: 100%;
+}
+
+core-toolbar {
+    background: #56BA89;
+    background-image: none;
+}
+</style>
+
 </head>
 
 <body>
-
-{{> navigation}}
-
-<section class="main-section">
-    <div class="row-fluid">
-        <div class="small-12 columns">
-            {{> stations }}
-        </div>
-    </div>
-</section>
-
-{{initFoundation}}
+<core-header-panel>
+{{> navigation }}
+{{> stations }}
+</core-header-panel>
 </body>
 
-
-<template name="maps">
-<div id="map"></div>
-</template>
-
-
 <template name="stations">
-<table class="station-list">
-    {{#each list }}
-    {{> station }}
-    {{/each}}
-</table>
+<div id="list">
+</div>
 </template>
 
-<template name="station">
-<tr class="item">
-    <td class="count bikes-{{ count}}">{{ bikes }}</td>
-    <td><a href="{{ link }}">{{ name }}</a></td>
-</tr>
+<template name="navigation">
+<core-toolbar layout horizontal end-justified>
+<search-input class="transparent" flex></search-input>
+</core-toolbar>
 </template>

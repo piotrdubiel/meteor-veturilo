@@ -1,0 +1,9 @@
+<link href="/stations.html" rel="import">
+<link href="/meteor-datasource.html" rel="import">
+
+<polymer-element name="meteor-list">
+<template is="auto-binding">
+<meteor-datasource source="list" data="{{ stations }}"></meteor-datasource>
+<station-list fit stations="{{ stations }}"></station-list>
+</template>
+</polymer-element>
