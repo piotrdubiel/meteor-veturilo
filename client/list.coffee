@@ -2,6 +2,7 @@
 
 Meteor.subscribe "stations"
 
+Session.set("reload", true)
 
 Template.stations.rendered = ->
   watch_location (position) ->
@@ -10,11 +11,15 @@ Template.stations.rendered = ->
       Session.set("center", position)
     else
       console.log "Skipping location due to low accuracy"
+
   Deps.autorun ->
     Session.set("result", stations())
-    $('#list').empty()
-    list = document.createElement("station-list")
-    document.getElementById("list").appendChild(list)
+    console.log "New result..."
+    if Session.get("reload")
+      console.log "Reloading list..."
+      $('#list').empty()
+      list = document.createElement("meteor-list")
+      document.getElementById("list").appendChild(list)
 
 
 Template.stations.link = ->

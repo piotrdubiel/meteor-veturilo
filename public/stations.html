@@ -1,7 +1,4 @@
-<div hidden><polymer-element name="meteor-datasource" hidden attributes="source" assetpath="../elements/">
-
-</polymer-element>
-</div><div hidden><!--
+<div hidden><!--
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -2528,7 +2525,7 @@ Fired when the Maps API has fully loaded.
 </polymer-element>
 
 
-<polymer-element name="station-list" attributes="stations selected" assetpath="../elements/">
+<polymer-element name="station-list" attributes="stations selected page" assetpath="../elements/">
     <template bind="{{ stations }}">
         <style>:host{display:block;position:relative}.container{width:100%;padding:15px;margin:0 auto;box-sizing:border-box}core-animated-pages{height:100%}station-card{margin-bottom:10px;width:100%}@media (min-width:800px){.container{width:720px}}search-input{max-width:20em}station-detail{width:100%}#details{position:fixed;top:0;bottom:0;left:0;right:0;z-index:9999}@media (min-width:800px){#details{padding:50px}}#close{position:absolute;top:3px;right:3px;fill:#636363}</style>
         <core-animated-pages selected="{{ page }}" transitions="hero-transition" on-core-animated-pages-transition-prepare="{{ prepare }}" layout="" vertical="" fit="">
@@ -2549,4 +2546,9 @@ Fired when the Maps API has fully loaded.
     </template>
     
 </polymer-element>
-</div>
+</div><polymer-element name="meteor-list" assetpath="../">
+<template>
+<station-list id="list"></station-list>
+</template>
+
+</polymer-element>
