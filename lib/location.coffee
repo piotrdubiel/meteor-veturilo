@@ -56,13 +56,3 @@
 
 @streetview = (position) ->
   "http://maps.googleapis.com/maps/api/streetview?size=640x640&location=#{position.latitude},#{position.longitude}" if position
-
-@stations = ->
-  result = if Session.get("match-query")
-    matching(Session.get("match-query"), 10)
-  else
-    position = Session.get("search-result") || Session.get("center") || {latitude: 52.225574, longitude: 21.010931}
-    nearest(position, 10)
-
-  result.fetch()
-  

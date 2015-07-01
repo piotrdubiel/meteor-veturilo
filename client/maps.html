@@ -36,8 +36,39 @@ core-toolbar {
 </body>
 
 <template name="stations">
-<div id="list">
-</div>
+    <core-animated-pages selected="0" transitions="hero-transition" on-core-animated-pages-transition-prepare="{{ prepare }}" layout vertical fit>
+        <section>
+            <div class="container">
+                {{#each list }}
+                    {{> station }}
+                {{/each}}
+            </div>
+        </section>
+        <section id="details">
+            <station-detail
+                id="detail"
+                hero
+                hero-id="{{ selected.uid }}"
+                name="{{ selected.name }}"
+                bikes="{{ selected.bikes }}"
+                bike_numbers="{{ selected.bike_numbers }}"
+                latitude="{{ selected.location[1] }}"
+                longitude="{{ selected.location[0] }}"
+                url="http://maps.google.com/maps?q={{ selected.location[1] }},{{ selected.location[0] }}({{ selected.name }})">
+                <core-icon-button id="close" icon="clear"></core-icon-button>
+            </station-detail>
+        </section>
+    </core-animated-pages>
+</template>
+
+<template name="station">
+    <station-card
+        hero-id="{{ uid }}" 
+        hero?="{{ is_selected }}"
+        name="{{ name }}"
+        bikes="{{ bikes }}"
+        url="http://maps.google.com/maps?q={{ latitude }},{{ longitude }}({{ name }})">
+    </station-card>
 </template>
 
 <template name="navigation">
